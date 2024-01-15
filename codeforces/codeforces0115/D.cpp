@@ -16,24 +16,18 @@ int32_t main(){
         for(auto &e: b) cin>>e;
         sort(a.begin(),a.end());
         sort(b.begin(),b.end());
-         if(n==1){
-            cout<<max(abs(b[0]-a[0]),abs(b[m-1]-a[0]))<<'\n';
-            continue;
-        }
-        int s=0,f=m-1;
+        int as=0,af=n-1,bs=0,bf=m-1;
         int ans=0;
-        int cnt=0;
-        while(2*cnt+1<n){
-            ans+=abs(b[f]-a[cnt]);
-            ans+=abs(b[s]-a[n-1-cnt]);
-            cnt++;
-            s++;
-            f--;
-        }
-        // cout<<cnt<<" "<<ans<<" ";
-        // cout<<s<<" "<<f<<'\n';
-        if(n%2==1){
-            ans+=max(abs(b[f]-a[(n-1)/2]),abs(b[s]-a[(n-1)/2]));
+        for(int i=0;i<n;++i){
+            if(abs(b[bf]-a[as])>abs(a[af]-b[bs])){
+                ans+=abs(b[bf]-a[as]);
+                bf--;
+                as++;
+            }else{
+                ans+=abs(a[af]-b[bs]);
+                bs++;
+                af--;
+            }
         }
         cout<<ans<<'\n';
     }
