@@ -71,6 +71,7 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "valarray": "cpp",
-        "ios": "cpp"
+        "ios": "cpp",
+        "stack": "cpp"
     }
 }
