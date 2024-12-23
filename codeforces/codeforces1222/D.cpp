@@ -17,16 +17,10 @@ int32_t main() {
         for (auto i : a) sum += i;
         int allowMin = sum - y;
         int allowMax = sum - x;
-        int minIdx = 0;
-        int maxIdx = n - 1;
+
         for (int i = 0; i < n; ++i) {
-            minIdx = i + 1;
-            while (a[minIdx] < allowMin - a[i]) {
-                minIdx++;
-            }
-            while (a[maxIdx] > allowMax - a[i]) {
-                maxIdx--;
-            }
+            int minIdx = lower_bound(a.begin() + i + 1, a.end(), allowMin - a[i]) - a.begin();
+            int maxIdx = upper_bound(a.begin() + i + 1, a.end(), allowMax - a[i]) - a.begin() - 1;
             if (maxIdx <= i) break;
             if (minIdx > maxIdx) continue;
             ans += maxIdx - minIdx + 1;
