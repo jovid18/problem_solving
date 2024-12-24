@@ -2,7 +2,6 @@
 using namespace std;
 #define int long long
 int t;
-const int MAX = 2LL * 1000000000LL;
 #define pii pair<int, int>
 int32_t main() {
     cin.tie(0)->sync_with_stdio(0);
@@ -10,39 +9,37 @@ int32_t main() {
     while (t--) {
         int n, k;
         cin >> n >> k;
+        vector<int> a, b;
+        a.resize(n);
+        b.resize(n);
+        for (auto &i : a) cin >> i;
+        for (auto &i : b) cin >> i;
         vector<pii> v;
-        v.resize(n);
-        for (auto &i : v) cin >> i.first;
-        for (auto &i : v) cin >> i.second;
+        // type : 0 -> 넘으면 negative +1
+        for (auto e : a) v.push_back({e, 0});
+        // type : 1 -> 넘으면 negative -1, buying -1
+        for (auto e : b) v.push_back({e, 1});
+        sort(v.begin(), v.end());
         int ans = 0;
-        for (auto [x1, x2] : v) {
-            int buying = 0;
-            int negativeReview = 0;
-            for (auto [a, b] : v) {
-                if (x1 <= a) {
-                    buying++;
-                } else if (x1 <= b) {
-                    buying++;
-                    negativeReview++;
+        int cnt = n;
+        int ngt = 0;
+        for (int i = 0; i < 2 * n;) {
+            auto [price, type] = v[i];
+            // 현재 가격까지는 safe -> ans 갱신
+            // cout << cnt << ' ' << ngt << ' ' << price << ' ' << type << '\n';
+            if (ngt <= k) ans = max(ans, price * cnt);
+            // 이후에는 인상 이벤트 발생 -> 그래서 while문 이후 ans를 구할 필요가 없음
+            while (i < 2 * n && v[i].first == price) {
+                auto [ithPrice, ithType] = v[i];
+                if (ithType == 0) {
+                    ngt++;
+                } else {
+                    ngt--;
+                    cnt--;
                 }
+                i++;
             }
-            if (negativeReview > k) continue;
-            ans = max(ans, buying * x1);
         }
-        for (auto [x1, x2] : v) {
-            int buying = 0;
-            int negativeReview = 0;
-            for (auto [a, b] : v) {
-                if (x2 <= a) {
-                    buying++;
-                } else if (x2 <= b) {
-                    buying++;
-                    negativeReview++;
-                }
-            }
-            if (negativeReview > k) continue;
-            ans = max(ans, buying * x2);
-        }
-        cout << ans << endl;
+        cout << ans << '\n';
     }
 }
