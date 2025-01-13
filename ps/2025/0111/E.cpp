@@ -11,47 +11,28 @@ int32_t main() {
     cin >> N;
     vector<int> A(N);
     for (auto &e : A) cin >> e;
-
-    map<int, int> freq;
-    for (auto &e : A) {
-        freq[e]++;
+    int l = 0, r = N / 2 + 1;
+    while (l + 1 < r) {
+        int m = (l + r) / 2;
+        bool is_ok = true;
+        for (int i = 0; i < m; i++) {
+            if (A[i] * 2 > A[N - m + i]) {
+                is_ok = false;
+                break;
+            }
+        }
+        if (is_ok) {
+            l = m;
+        } else {
+            r = m;
+        }
     }
-    int ans = 0;
-    for (int i = N - 1; i >= 0; i--) {
-        int val = A[i];
-        auto itVal = freq.find(val);
-        if (itVal == freq.end()) {
-            continue;
+    bool chk = true;
+    for (int i = 0; i < r; i++) {
+        if (A[i] * 2 > A[N - r + i]) {
+            chk = false;
+            break;
         }
-        if (itVal->second == 0) {
-            freq.erase(itVal);
-            continue;
-        }
-
-        int half = val / 2;
-        auto it2 = freq.upper_bound(half);
-        if (it2 == freq.begin()) {
-            continue;
-        }
-        it2--;
-
-        if (it2->second == 0) {
-            freq.erase(it2);
-            continue;
-        }
-
-        itVal->second--;
-        if (itVal->second == 0) {
-            freq.erase(itVal);
-        }
-        auto tmpIt = it2;
-        tmpIt->second--;
-        if (tmpIt->second == 0) {
-            freq.erase(tmpIt);
-        }
-
-        ans++;
     }
-
-    cout << ans << "\n";
+    cout << l;
 }
