@@ -2,6 +2,8 @@
 using namespace std;
 #define int long long
 #define pii pair<int, int>
+
+// https://atcoder.jp/contests/pakencamp-2019-day3/tasks/pakencamp_2019_day3_c
 int32_t main() {
     cin.tie(0)->sync_with_stdio(0);
     // n이 사람, m이 노래

@@ -2,6 +2,8 @@
 using namespace std;
 #define int long long
 #define pii pair<int, int>
+
+// https://atcoder.jp/contests/abc095/tasks/arc096_a
 int32_t main() {
     cin.tie(0)->sync_with_stdio(0);
     // A피자, B피자, AB피자 가격, A피자 개수, B피자 개수

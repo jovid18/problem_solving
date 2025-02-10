@@ -2,6 +2,8 @@
 using namespace std;
 #define int long long
 #define pii pair<int, int>
+
+// https://atcoder.jp/contests/abc122/tasks/abc122_b
 int32_t main() {
     cin.tie(0)->sync_with_stdio(0);
     string S;
