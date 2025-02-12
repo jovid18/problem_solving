@@ -11,6 +11,7 @@ bool has7(int n) {
 }
 
 vector<int> with9 = {9, 99, 999, 9999, 99999, 999999, 9999999, 99999999, 999999999, 9999999999LL};
+// https://codeforces.com/contest/2067/problem/C
 void solve() {
     int ans = 10;
     int n;

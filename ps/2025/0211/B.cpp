@@ -2,6 +2,7 @@
 using namespace std;
 #define int long long
 
+// https://codeforces.com/contest/2067/problem/B
 void solve() {
     int n;
     cin >> n;
