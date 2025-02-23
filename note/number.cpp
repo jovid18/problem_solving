@@ -57,6 +57,22 @@ int fast_pow(int a, int b) {
     return ret;
 }
 
+// 역원 구하기 a^-1 mod p = a^(p-2) mod p
+int inverse(int a) { return fast_pow(a, MOD - 2); }
+
+// nCk
+int comb(int n, int k) {
+    int num = 1, den = 1;
+    for (int i = 0; i < k; i++) {
+        num = num * (n - i) % MOD;
+        den = den * (i + 1) % MOD;
+    }
+    return num * inverse(den) % MOD;
+}
+
+// nHk
+int homo(int n, int k) { return comb(n + k - 1, k); }
+
 int32_t main() {
     cin.tie(0)->sync_with_stdio(0);
     return 0;
