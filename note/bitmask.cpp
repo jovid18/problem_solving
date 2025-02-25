@@ -3,6 +3,11 @@ using namespace std;
 #define int long long
 #define pii pair<int, int>
 
+bool is_element(int mask, int element) {
+    // Check if element is in mask
+    return mask & (1 << element);
+}
+
 int add_element(int mask, int element) {
     // Add element to mask
     return mask | (1 << element);
