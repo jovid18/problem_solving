@@ -32,6 +32,16 @@ void print_subset(int mask) {
     cout << bitset<64>(mask) << '\n';
 }
 
+vector<int> get_elements(int mask) {
+    vector<int> elements;
+    while (mask) {
+        int bit = __builtin_ctz(mask);
+        elements.push_back(bit);
+        mask &= mask - 1;
+    }
+    return elements;
+}
+
 vector<int> get_subset(int mask) {
     // Get subset of mask
     vector<int> subset;
