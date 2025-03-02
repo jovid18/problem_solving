@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
+#define ld long double
 #define pii pair<int, int>
 
 const int MOD = 1e9 + 7;
@@ -72,6 +73,18 @@ int comb(int n, int k) {
 
 // nHk
 int homo(int n, int k) { return comb(n + k - 1, k); }
+
+// a * i + b가 [x, y] 범위 내에 존재하는 i의 개수를 구하는 함수
+int cnt(int a, int b, int x, int y) {
+    if (a == 0) {
+        if (b >= x && b <= y) return -1;
+        return 0;
+    }
+    int minI = ceil((ld)(x - b) / a);
+    int maxI = floor((ld)(y - b) / a);
+    if (minI > maxI) return 0;
+    return maxI - minI + 1;
+}
 
 int32_t main() {
     cin.tie(0)->sync_with_stdio(0);
