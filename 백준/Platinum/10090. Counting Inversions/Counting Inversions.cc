@@ -1,36 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-int n;
-int a[1000000],temp[1000000];
 
-int merge(int s,int m,int f){
-    int i=s,j=m+1,k=s;
-    int inv=0;
-    while(i<=m&&j<=f){
-        if(a[i]<=a[j]) temp[k++]=a[i++];
-        else{
-            temp[k++]=a[j++];
-            inv+=(m+1-i);
-        } 
-    }
-    while(i<=m) temp[k++]=a[i++];
-    while(j<=f) temp[k++]=a[j++];
-    for(int i=s;i<=f;++i) a[i]=temp[i];
-    return inv;
+int countInversions(vector<int> v) {
+    vector<int> temp(v.size());
+    function<int(int, int)> mergeSortAndCount = [&](int left, int right) {
+        if (left >= right) return 0LL;
+        int mid = left + (right - left) / 2, inv_count = 0;
+        inv_count += mergeSortAndCount(left, mid);
+        inv_count += mergeSortAndCount(mid + 1, right);
+        int i = left, j = mid + 1, k = left;
+        while (i <= mid && j <= right) {
+            if (v[i] <= v[j])
+                temp[k++] = v[i++];
+            else {
+                temp[k++] = v[j++];
+                inv_count += (mid - i + 1);
+            }
+        }
+        while (i <= mid) temp[k++] = v[i++];
+        while (j <= right) temp[k++] = v[j++];
+        for (int x = left; x <= right; x++) v[x] = temp[x];
+        return inv_count;
+    };
+    return mergeSortAndCount(0, v.size() - 1);
 }
 
-int mergesort(int s,int f){
-    if(s>=f) return 0;
-    int m=(s+f)/2;
-    int a_inv=mergesort(s,m);
-    int b_inv=mergesort(m+1,f);
-    int m_inv=merge(s,m,f);
-    return a_inv+b_inv+m_inv;
-}
-int32_t main(){
+int32_t main() {
     cin.tie(0)->sync_with_stdio(0);
-    cin>>n;
-    for(int i=0;i<n;++i) cin>>a[i];
-    cout<<mergesort(0,n-1);
+    int n;
+    cin >> n;
+    vector<int> v(n);
+    for (auto &i : v) cin >> i;
+    cout << countInversions(v);
 }
